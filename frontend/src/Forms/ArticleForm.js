@@ -99,7 +99,7 @@ export default function ArticleForm(props) {
         </Form.Control>
       </Form.Group>
 
-      <Form.Group controlId="formGridAddress2">
+      <Form.Group>
         <Form.Label>Fournisseur</Form.Label>
         <Form.Control as="select" onChange={(e) => setFrn(e.target.value)}>
           <option>Choisir...</option>
@@ -110,7 +110,7 @@ export default function ArticleForm(props) {
       </Form.Group>
 
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridCity">
+        <Form.Group as={Col}>
           <Form.Label>Prix Achat</Form.Label>
           <Form.Control
             value={pa}
@@ -119,7 +119,7 @@ export default function ArticleForm(props) {
           />
         </Form.Group>
 
-        <Form.Group as={Col} controlId="formGridState">
+        <Form.Group as={Col}>
           <Form.Label>Prix Vente</Form.Label>
           <Form.Control
             value={prixVente}
@@ -128,7 +128,7 @@ export default function ArticleForm(props) {
           />
         </Form.Group>
 
-        <Form.Group as={Col} controlId="formGridZip">
+        <Form.Group as={Col}>
           <Form.Label>Quantité</Form.Label>
           <Form.Control
             value={qte}

@@ -4,11 +4,6 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 var cors = require("cors");
-const { Client,defaultUsers} = require("./models/client");
-var bcrypt = require("bcrypt");
-
-
-
 
 var clientRouter = require("./routes/client");
 var articleRouter = require("./routes/article");
@@ -36,7 +31,6 @@ mongoose
   .then(() => console.log("Connecté à la base de données..."))
   .catch(err => console.error("Erreur lors de la connexion..."));
 
-  defaultUsers(mongoose,bcrypt);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -55,6 +49,3 @@ app.use("/account", accountRouter);
 app.use("/fournisseurs", fournisseurRouter);
 
 module.exports = app;
-
-
-

@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import auth from "../Services/authservice";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,10 +44,7 @@ export default function SignIn() {
     try {
       const { data } = { email, password };
       await auth.login(email, password);
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-      }
-    }
+    } catch (ex) {}
   };
 
   return (

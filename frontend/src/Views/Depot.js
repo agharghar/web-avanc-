@@ -80,7 +80,7 @@ export default function StickyHeadTable() {
     async function fetchData() {
       const { data: depot } = await getDepots();
       const { data: me } = await getMe();
-      if (me.role != "admin" || me.role != "fournisseur") {
+      if (me.role != "admin" && me.role != "fournisseur") {
         window.location.replace("https://www.perdu.com/");
       }
 

@@ -17,7 +17,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import FilterListIcon from "@material-ui/icons/FilterList";
 import { Modal, Button } from "react-bootstrap";
 import CommandStepper from "../Components/CommandStepper";
 
@@ -62,7 +61,6 @@ function EnhancedTableHead(props) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all desserts" }}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -72,18 +70,7 @@ function EnhancedTableHead(props) {
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </span>
-              ) : null}
-            </TableSortLabel>
+            {headCell.label}
           </TableCell>
         ))}
       </TableRow>
@@ -157,11 +144,7 @@ const EnhancedTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
+          <div></div>
         )}
       </Toolbar>
 
@@ -235,11 +218,16 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = articles.map((a) => a._id);
-      setSelected(newSelecteds);
+      const newSelected = [...articles];
+      setSelected(newSelected);
+      items = [...articles];
+      return;
+    } else {
+      const newSelected = [];
+      setSelected(newSelected);
+      items = [...selected];
       return;
     }
-    setSelected([]);
   };
 
   const handleClick = (event, article) => {
@@ -277,7 +265,12 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (id) => {
+    for (var i = 0; i < selected.length; i++) {
+      if (selected[i]._id == id) return true;
+    }
+    return false;
+  };
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, articles.length - page * rowsPerPage);
@@ -316,7 +309,7 @@ export default function EnhancedTable() {
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.name}
+                        key={row._id}
                         selected={isItemSelected}
                       >
                         <TableCell padding="checkbox">

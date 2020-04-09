@@ -144,7 +144,7 @@ router.post("/", [auth], async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
   const clt = await Client.findOne({ email: req.body.email });
   if (clt != null) return res.status(400).send("Email Existent");
-  if (!["client", "fournisseur", "admin"].includes(req.body.role))
+  if (!["user", "fournisseur", "admin"].includes(req.body.role))
     return res.status(404).send("Role erreur");
   let client = new Client(
     _.pick(req.body, [

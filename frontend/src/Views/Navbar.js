@@ -121,7 +121,6 @@ export default function MiniDrawer() {
     async function fetchData() {
       const { data: client } = await getMe();
       setRole(client.role[0]);
-      console.log("zebi" + client.role[0]);
     }
     fetchData();
   }, []);
